@@ -1,68 +1,85 @@
-# Tiered Discounts Extension App for Shopify
+# Tiered Product Discount Function - Shopify Extension
 
-This extension allows you to create tiered discounts for your products.
+This Shopify Function extension implements a tiered discount system that rewards customers for purchasing multiple unique products.
 
-## Getting started
+## How It Works
 
-### Requirements
+The discount system operates based on the following rules:
 
-1. You must [download and install Node.js](https://nodejs.org/en/download/) if you don't already have it.
-1. You must [create a Shopify partner account](https://partners.shopify.com/signup) if you don’t have one.
-1. You must create a store for testing if you don't have one, either a [development store](https://help.shopify.com/en/partners/dashboard/development-stores#create-a-development-store) or a [Shopify Plus sandbox store](https://help.shopify.com/en/partners/dashboard/managing-stores/plus-sandbox-store).
+- Minimum requirement: Cart must contain at least 2 unique products
+- Discount rate: 5% per unique product
+- Maximum discount: 20% off the order subtotal
 
-### Installing the template
+### Discount Tiers
 
-This template can be installed using your preferred package manager:
+| Unique Products | Discount          |
+| --------------- | ----------------- |
+| 1 product       | No discount       |
+| 2 products      | 10% off           |
+| 3 products      | 15% off           |
+| 4+ products     | 20% off (maximum) |
 
-Using yarn:
+## Technical Details
 
-```shell
-yarn create @shopify/app
+- Built using Shopify Functions and TypeScript
+- Automatically calculates discounts based on unique products in cart
+- Implements First application strategy for discount handling
+- No product exclusions - applies to all products in store
+
+## Development
+
+### Prerequisites
+
+1. [Node.js](https://nodejs.org/en/download/) installed
+2. [Shopify Partner account](https://partners.shopify.com/signup)
+3. Shopify CLI installed
+4. Development store or Shopify Plus sandbox store
+
+### Installation
+
+1. Clone this repository
+2. Install dependencies:
+
+```bash
+npm install
+# or
+yarn install
 ```
 
-Using npm:
+### Local Development
 
-```shell
-npm init @shopify/app@latest
-```
+Run the development server:
 
-Using pnpm:
-
-```shell
-pnpm create @shopify/app@latest
-```
-
-This will clone the template and install the required dependencies.
-
-#### Local Development
-
-[The Shopify CLI](https://shopify.dev/docs/apps/tools/cli) connects to an app in your Partners dashboard. It provides environment variables and runs commands in parallel.
-
-You can develop locally using your preferred package manager. Run one of the following commands from the root of your app.
-
-Using yarn:
-
-```shell
+```bash
+npm run dev
+# or
 yarn dev
 ```
 
-Using npm:
+### Deployment
 
-```shell
-npm run dev
+Deploy to Shopify using:
+
+```bash
+npm run deploy
+# or
+yarn deploy
 ```
 
-Using pnpm:
+## Configuration
 
-```shell
-pnpm run dev
+The discount parameters can be modified in `src/run.ts`:
+
+```typescript
+const MIN_UNIQUE_PRODUCTS = 2; // Minimum products for discount
+const DISCOUNT_PER_PRODUCT = 5; // Percentage per unique product
+const MAX_DISCOUNT = 20; // Maximum discount percentage
 ```
 
-Open the URL generated in your console. Once you grant permission to the app, you can start development (such as generating extensions).
+## Support
 
-## Developer resources
+For issues and feature requests, please create an issue in this repository.
 
-- [Introduction to Shopify apps](https://shopify.dev/docs/apps/getting-started)
-- [App extensions](https://shopify.dev/docs/apps/build/app-extensions)
-- [Extension only apps](https://shopify.dev/docs/apps/build/app-extensions/build-extension-only-app)
-- [Shopify CLI](https://shopify.dev/docs/apps/tools/cli)
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
